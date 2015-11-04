@@ -1,0 +1,40 @@
+import random
+inputs = []
+name = raw_input("Welcome to The Guessing Game! What's your name? ")
+print "Nice to meet you!"
+y = random.randrange(0,100,1)
+print y 
+#this allows you to exit the game before 10 guesses by entering correct guess and is for testing only
+#valid_inputs checks that inputs are numbers
+def valid_inputs():
+    guess = raw_input("Guess a number from 0-100! ")
+    while True:
+        try:    
+            return int(guess)
+        except ValueError:
+            print "Whoops! That's not a number!"
+            guess = raw_input("Enter an integer to guess again! ")
+    
+x = valid_inputs()
+#nums takes in integers from valid_inputs and runs through logic
+def nums(x):
+    while x != y:
+        if len(inputs)>=10:
+            return "Getting bored? The answer is {0}. Better luck next time!".format(y)
+        elif x < 0:
+            print "Out of range! My number is 0 or more."
+        elif x > 100:
+            print "Out of range! My number is 100 or less."
+        elif x % 1 != 0:
+            print "That's not a whole number!"
+        else:
+            if x not in inputs:
+                inputs.append(x)
+                print "Sorry, that's not it."
+            else:
+                print "You've already guessed that number."
+        x = valid_inputs()
+    print "Yer a wizard, {0}!".format(name)
+    return "You guessed the number in {0} guesses.".format(len(inputs)+1)
+        
+print nums(x)
